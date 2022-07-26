@@ -2,6 +2,6 @@
 
 # Produtos
 
-# Camiseta Venezia
+# Camiseta Venezia e Palermo
 # Apple Iphone 13 Pro
 # 
