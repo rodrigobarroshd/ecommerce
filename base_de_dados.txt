@@ -1,7 +1,7 @@
 Apps:
-    pedido
-    produto
-    perfil
+    pedido.
+    produto.
+    perfil.
 
 Models:
     Pedido:
