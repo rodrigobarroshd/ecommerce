@@ -3,27 +3,24 @@ from django.db import models
 from PIL import Image
 import os
 from django.conf import settings
-# Create your models here.
-
+from django.utils.text import slugify
 class Produto(models.Model):
     nome = models.CharField(max_length=255)
     descricao_curta = models.TextField(max_length=255)
     descricao_longa = models.TextField()
     imagem = models.ImageField(
         upload_to='produto_imagens/%Y/%m/', blank=True, null=True)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, blank=True, null=True)
     preco_marketing = models.FloatField()
     preco_marketing_promocional = models.FloatField(default=0)
     tipo = models.CharField(
         default='V',
         max_length=1,
         choices=(
-            ('V', 'Variação'),
+            ('V', 'Variavel'),
             ('S', 'Simples'),
         )
     )
-
-
     @staticmethod
     def resize_image(img, new_width=800):
         img_full_path = os.path.join(settings.MEDIA_ROOT, img.name)
@@ -43,10 +40,13 @@ class Produto(models.Model):
             img_full_path,
             optimize=True,
             quality=100
-        )
-        # print('Imagem foi redimensionada...')
+        ) # print('Imagem foi redimensionada...')
 
     def save(self, *args, **kwargs):
+        if not self.slug:
+            slug = f'{slugify(self.nome)}'
+            self.slug = slug
+
         super().save(*args, **kwargs)
 
         max_image_size = 800
