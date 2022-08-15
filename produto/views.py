@@ -9,7 +9,7 @@ from . import models
 class ListaProdutos(ListView):  # alterar pra ListView
     model = models.Produto
     template_name = 'produto/lista.html'
-
+    context_object_name = 'produtos'
 
 class DetalheProduto(View):
     def get(self, *args, **kwargs):
