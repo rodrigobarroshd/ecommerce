@@ -48,7 +48,7 @@ class AdicionarAoCarrinho(View):
             pass
         else:
             # TODO: Variacao nao existe no carrinho
-
+            pass
             
         return HttpResponse(f'{variacao.Produto} {variacao.nome}')
 
